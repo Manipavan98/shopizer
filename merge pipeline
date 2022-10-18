@@ -1,7 +1,5 @@
 pipeline {
     agent {label 'jdk11'}  
-    trigger {
-        cron (' 00 17 * * *')
     }
     stages {
         stage('clone') { 
