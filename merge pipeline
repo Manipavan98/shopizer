@@ -1,6 +1,5 @@
 pipeline {
     agent {label 'jdk11'}  
-    }
     stages {
         stage('clone') { 
             steps {
