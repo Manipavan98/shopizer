@@ -1,0 +1,23 @@
+pipeline {
+    agent {label 'jdk11'}  
+    trigger {
+        cron (' 00 17 * * *')
+    }
+    stages {
+        stage('clone') { 
+            steps {
+                git url:'https://github.com/Manipavan98/shopizer.git' , branch : 'release' 
+            }
+        }
+        stage ('merge') {
+            steps {
+                sh 'git merge --no-ff origin/develop'
+            }
+        }
+        stage('install') { 
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+}
