@@ -1,0 +1,26 @@
+pipeline {
+    agent {label 'jdk11'}  
+    stages {
+        stage('clone') { 
+            steps {
+                git url:'https://github.com/Manipavan98/shopizer.git' , branch : 'release' 
+            }
+            }
+            stage('vcs'){
+                steps {
+                    git url: 'https://github.com/Manipavan98/shopizer.git' , branch : 'master'
+                }
+            }
+        stage ('merge') {
+            steps {
+                sh 'git checkout master'
+                sh 'git merge release master --no-ff'
+            }
+        }
+        stage('install') { 
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+}
